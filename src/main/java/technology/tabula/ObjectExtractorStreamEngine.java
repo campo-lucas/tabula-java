@@ -164,7 +164,7 @@ class ObjectExtractorStreamEngine extends PDFGraphicsStreamEngine {
             switch (currentSegment) {
                 case SEG_LINETO:
                     endPoint = new Point2D.Float(coordinates[0], coordinates[1]);
-                    if (startPoint == null || endPoint == null) {
+                    if (startPoint == null) {
                         break;
                     }
                     line = getLineBetween(startPoint, endPoint, pointComparator);
@@ -220,7 +220,7 @@ class ObjectExtractorStreamEngine extends PDFGraphicsStreamEngine {
     }
 
     private Line2D.Float getLineBetween(Point2D.Float pointA, Point2D.Float pointB, PointComparator pointComparator) {
-        if (pointComparator.compare(pointA, pointB) == -1) {
+        if (pointComparator.compare(pointA, pointB) < 0) {
             return new Line2D.Float(pointA, pointB);
         }
         return new Line2D.Float(pointB, pointA);
